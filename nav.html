@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang="en">
+	<head> 
+		<title>Responsive navigation</title> 
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0" media="(device-height: 568px)">
+		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!-- Style Sheets --> 
+		<link rel="stylesheet" href="css/nav.css" />
+		<script src="js/modernizr.js"></script>
+	</head> 
+	<body> 
+		<header role="banner" class="top-bar">
+			<div class="top-bar-inner">
+				<div class="nav-bar"> <!-- .nav-bar will be pushed right on nav-drawer open -->
+					<h1 class="title"><a href="nav-drawer.html">Nav.js</a></h1>
+					<a href="#nav" id="nav-bar-toggle" class="burger-right">Menu</a>
+				</div>
+				<nav id="nav" class="nav-bar-nav" role="navigation">
+					<ul>
+						<li><a href="#" class="active">Home</a></li>
+						<li><a href="#">Link two</a></li>
+						<li><a href="#">Link three</a></li>
+						<li><a href="#">Link four</a></li>
+						<li><a href="#">Link five</a></li>
+						<li><a href="#">Link six</a></li>
+						<li><a href="#">Link seven</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="content"> <!-- .content will be pushed right on nav-drawer open. It can also be used to close the nav-drawer -->
+			<div class="row">
+				<div class="header-section">
+					<p class="placefiller">HEADER</p>
+				</div>
+				<div class="body-section">
+					<p class="placefiller">BODY</p>
+				</div>
+				<div class="footer-section">
+					<p class="placefiller">FOOTER</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Scripts --> 
+		<script src="js/jquery-1.9.js"></script>
+		<!--[if lte IE 8]>
+			<script type="text/javascript" async src="js/pointer_events_polyfill.js"></script>
+		<![endif]-->
+		<script src="js/nav.js"></script>
+	</body>
+</html>

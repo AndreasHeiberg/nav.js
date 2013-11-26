@@ -1,0 +1,208 @@
+$drawer-width: 240px;
+$drawer-buffer: 60px;
+
+$menu-width: 780px;
+$menu-height: 60px;
+
+@import "functions";
+@import "mixins";
+@import "utils";
+@import "animations";
+@import "non-essential";
+
+* {
+	@include box-sizing(border-box);
+}
+
+.has-nav-bar-drawer {
+	width: 100%;
+	margin: 0;
+	overflow-x: hidden;
+	background-color: #1d2d35; // color behind the nav-bar-nav (will be visible at various points in the animation)
+
+	/*  Prevents Flickering  */
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+}
+
+.content {
+	width: 100%;
+	min-height: 100vh;
+	background-color: #dadee1;
+
+	@include media(menu-max) {
+		margin-top: 60px;
+	}
+}
+
+.top-bar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 5;
+
+	height: 60px;
+	background: hsl(208, 12%, 25%);
+
+	@include media(menu) {
+		position: relative;
+		background-color: #f3f5f6;
+	}
+}
+
+.nav-bar {
+	@extend .top-bar; // we need the positioning, z-index and background so that animation of .nav-bar-nav will happen behind .nav-bar
+}
+
+.title {
+	display: block;
+	text-align: center;
+	line-height: $menu-height;
+	font-size: 1.68em;
+	font-weight: bold;
+	padding-left: 0;
+	margin: 0;
+
+	a {
+		color: #ffffff;
+		text-decoration: none;
+	}
+
+	@include media(menu) {
+		text-align: left;
+		padding-left: 20px;
+
+		a {
+			color: #9aa6af;
+
+			&:hover {
+				color: #9aa6af;
+			}
+		}
+	}
+}
+
+.burger {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: $menu-height;
+	width: $menu-height;
+	color: white;
+	text-decoration: none;
+	font-size: 0;
+
+	@include media(menu) {
+		display: none;
+	}
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0.42em;
+		left: 0.28em;
+		width: 1em;
+		height: 0.125em;
+		border-top: 0.375em double #fff;
+		border-bottom: 0.125em solid #fff;
+		font-size: 40px;
+	}
+}
+
+.burger-right {
+	@extend .burger;
+	left: auto;
+	right: 0;
+}
+
+.nav-bar-nav {
+	@include transform(translate3d(0,0,0));
+	opacity: 0; // you can not animate display: none; however this means I have to use pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding-top: $menu-height; // padding instead of top so that any bounce animation won't leave a gab between .nav-bar and .nav-bar-nav
+	margin: 0;
+	background-color: #1d2d35;
+	pointer-events: none; // isn't supported in IE9 and down
+
+	&.nav-bar-is-open,
+	&:target {
+		opacity: 1;
+		pointer-events: auto;
+		@include animation(bounceInDown 1s ease-in-out);
+	}
+
+	&.nav-bar-is-closed, {
+		@include animation(bounceOutUp 1s ease-in-out);
+	}
+
+	@include media(menu) {
+		left: auto; // pull the menu to the right side of the .top-bar
+		right: 0;
+		width: auto;
+		z-index: 5;
+
+		// reset all the .nav-bar-nav stuff
+		opacity: 1;
+		background: none;
+		padding: 0;
+		pointer-events: auto;
+
+		li {
+			display: inline-block; // make a horzintal menu instead of the vertical from the .nav-bar-nav
+			float: left;
+
+			a {
+				padding: 24px 15px;
+			}
+		}
+	}
+}
+
+.csstransforms3d .has-nav-bar-drawer {
+	.nav-bar-drawer {
+		@include media(laptop-max) {
+			top: 0;
+			left: -$drawer-width - $drawer-buffer;
+			right: auto;
+			padding-top: 0;
+			width: $drawer-width + $drawer-buffer;
+			opacity: 1;
+
+			li a {
+				padding-left: $drawer-buffer + 25px;
+			}
+
+			&.nav-bar-is-open,
+			&:target {
+				@include transform(translate3d($drawer-width,0,0));
+				@include animation(bounceInLeft 1s ease-in-out);
+			}
+
+			&.nav-bar-is-closed, {
+				@include transform(translate3d(0,0,0));
+				@include animation(bounceOutRight 1s ease-in-out);
+			}
+		}
+	}
+
+	.content,
+	.nav-bar {
+		@include transform(translate3d(0,0,0));
+
+		&.nav-bar-is-open,
+		&:target {
+			@include transform(translate3d($drawer-width,0,0));
+			@include animation(bounceInLeft 1s ease-in-out);
+		}
+
+		&.nav-bar-is-closed {
+			@include transform(translate3d(0,0,0));
+			@include animation(bounceOutRight 1s ease-in-out);
+		}
+	}
+}

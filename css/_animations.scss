@@ -1,0 +1,72 @@
+@include keyframes(bounceInDown) {
+	0% {
+		opacity: 0;
+		@include transform(translate3d(0, -2000px, 0));
+	}
+
+	60% {
+		opacity: 1;
+		@include transform(translate3d(0, 30px, 0));
+	}
+
+	80% {
+		@include transform(translate3d(0, -10px, 0));
+	}
+
+	100% {
+		@include transform(translate3d(0, 0, 0));
+	}
+}
+
+@include keyframes(bounceOutUp) {
+	0% {
+		opacity: 1;
+		@include transform(translate3d(0, 0, 0));
+	}
+
+	20% {
+		opacity: 1;
+		@include transform(translate3d(0, 20px, 0));
+	}
+
+	100% {
+		opacity: 0;
+		@include transform(translate3d(0, -2000px, 0));
+	}
+}
+
+@include keyframes(bounceInLeft) {
+	0% {
+		@include transform(translate3d(0px, 0, 0));
+	}
+
+	60% {
+		@include transform(translate3d($drawer-width + 30px, 0, 0));
+	}
+
+	80% {
+		@include transform(translate3d($drawer-width - 10px, 0, 0));
+	}
+
+	100% {
+		@include transform(translate3d($drawer-width, 0, 0));
+	}
+}
+
+@include keyframes(bounceOutRight) {
+	0% {
+		@include transform(translate3d($drawer-width, 0, 0));
+	}
+
+	60% {
+		@include transform(translate3d(-30px, 0, 0));
+	}
+
+	80% {
+		@include transform(translate3d(10px, 0, 0));
+	}
+
+	100% {
+		@include transform(translate3d(0px, 0, 0));
+	}
+}
